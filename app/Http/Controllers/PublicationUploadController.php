@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use App\User;
 use Auth;
 use App\Publication;
@@ -76,34 +77,47 @@ class PublicationUploadController extends Controller
         $input = $request->all();
         $user = \Auth::user()->id;
         $ip  = $request->ip();
-       if($file = $request->file('file')) {
-              $name = 'file/'.date("Y").'/'.date("m").'/'.date("d").'/'.time() . $file->getClientOriginalName();
-              $file->move( 'file/'.date("Y").'/'.date("m").'/'.date("d"),$name);
-             $upload = Upload::create(['file' => $name,'user_created'=> $user,'user_edited'=> $user,'ip_created'=> $ip,'ip_edited'=> $ip]);
-
-          }
-
         $fileupload = $request->all();
         $fileupload['published_date'] = Carbon::parse($request->published_date);
-        $fileupload['upload_id'] = $upload->id;
+        // $fileupload['upload_id'] = $upload->id;
         $fileupload['user_created'] = $user;
         $fileupload['user_edited'] = $user;
         $fileupload['ip_created'] = $ip;
         $fileupload['ip_edited'] = $ip;
 
-        PublicationUpload::create($fileupload);
-         //  return redirect()->route('companies.index')
-         //    ->with('flash_message',
-         //     'Company '. $input['name_full'].' added!');
+        $publication = PublicationUpload::create($fileupload);
 
-          
+       if($file = $request->file('file')) {
 
-         // return redirect()->route('companies.index')
-         //    ->with('flash_message',
-         //     'Company '. $request->name_short.' added!');
+            $s3 = \Storage::disk('s3');
+              $name = time() . $file->getClientOriginalName();
+              $filePath = 'publication/'.date("Y").'/'.date("m").'/'.date("d").'/' . $name;
+              $s3->put($filePath, file_get_contents($file), 'public');
+             
+              // $name = 'logo/'.time() . $file->getClientOriginalName();
+              //$file->move('logo',$name);
+              $upload = new Upload();
+              $upload->file = 'publication/'.date("Y").'/'.date("m").'/'.date("d").'/'.$name;
+              $upload->user_created = $user;
+              $upload->user_edited = $user;
+              $upload->ip_created = $ip;
+              $upload->ip_edited = $ip;
+              $publication->uploads()->save($upload);
 
 
-        return $fileupload;
+             //  $name = 'file/'.date("Y").'/'.date("m").'/'.date("d").'/'.time() . $file->getClientOriginalName();
+             //  $file->move( 'file/'.date("Y").'/'.date("m").'/'.date("d"),$name);
+             // $upload = Upload::create(['file' => $name,'user_created'=> $user,'user_edited'=> $user,'ip_created'=> $ip,'ip_edited'=> $ip]);
+
+          }
+
+        
+         
+
+
+        return redirect()->route('upload.create')
+            ->with('flash_message',
+             'Page Uploaded');
     }
 
     /**

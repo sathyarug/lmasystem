@@ -106,9 +106,7 @@ class CompanyController extends Controller
 
           
 
-         return redirect()->route('companies.index')
-            ->with('flash_message',
-             'Company '. $request->name_short.' added!');
+        
     }
 
     /**
