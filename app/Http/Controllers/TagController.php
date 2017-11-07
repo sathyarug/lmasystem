@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Auth;
+use App\Tag;
+
+//Importing laravel-permission models
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class TagController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('auth'); //isAdmin middleware lets only users with a //specific permission permission to access these resources
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +25,8 @@ class TagController extends Controller
     public function index()
     {
         //
+        $tags = Tag::all();
+        return view('tags.index',compact('tags'));
     }
 
     /**
@@ -24,6 +37,9 @@ class TagController extends Controller
     public function create()
     {
         //
+        
+        return view('tags.create');
+
     }
 
     /**
@@ -35,6 +51,23 @@ class TagController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name'=>'required|min:3|max:40',
+        ]);
+
+        $name = $request['name'];
+        $user = \Auth::user()->id;
+        $ip  = $request->ip();
+        $tag = new Tag();
+        $tag->name = $name;
+        $tag->user_created = $user;
+        $tag->user_edited = $user;
+        $tag->ip_created = $ip;
+        $tag->ip_edited = $ip;
+        $tag->save();
+        return redirect()->route('tags.index')
+            ->with('flash_message',
+             'Tag '. $tag->name.' added!');
     }
 
     /**
@@ -57,6 +90,9 @@ class TagController extends Controller
     public function edit($id)
     {
         //
+        $tag = Tag::findOrFail($id);
+
+        return view('tags.edit', compact('tag'));
     }
 
     /**
@@ -69,6 +105,20 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $this->validate($request, [
+            'name'=>'required|min:3|max:40',
+        ]);
+        $user = \Auth::user()->id;
+        $ip  = $request->ip();
+        $input = $request->all();
+        $input['ip_edited'] = $ip;
+        $input['user_edited'] = $user;
+        $tag->fill($input)->save();
+
+        return redirect()->route('tags.index')
+            ->with('flash_message',
+             'Tag'. $tag->name.' updated!');
     }
 
     /**
