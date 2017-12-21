@@ -30,6 +30,7 @@
 @endsection
 
 @section('content')
+  @can('UploadPublication')
 
   <!-- START CONTAINER FLUID -->
           <div class=" no-padding    container-fixed-lg bg-white">
@@ -105,7 +106,7 @@
                         <br>
                         {{-- <button class="btn btn-success" type="submit">Submit</button>
                         <button class="btn btn-default"><i class="pg-close"></i> Clear</button> --}}
-                         {{Form::button('<i class="pg-plus"></i>'.' Uplod', array('type' => 'submit', 'class' => 'btn btn-primary'))}}
+                         {{Form::button('<i class="pg-plus"></i>'.' Upload', array('type' => 'submit', 'class' => 'btn btn-primary'))}}
                         
                          {{Form::button('<i class="pg-close"></i>'.' Clear', array('type' => 'reset', 'class' => 'btn btn-default'))}}
 
@@ -158,6 +159,10 @@
             </div>
           </div>
           <!-- END CONTAINER FLUID -->
+
+    @else
+    <h1>You Dont Have Permission to Access This Page</h1>
+    @endcan
 
 	
 

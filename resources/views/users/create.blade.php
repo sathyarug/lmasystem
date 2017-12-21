@@ -24,19 +24,19 @@
 
 @section('content')
 
-<div class='col-lg-4 col-lg-offset-4'>
+<div class='col-lg-6 col-lg-offset-6'>
 
     <h1><i class='fa fa-user-plus'></i> Add User</h1>
     <hr>
 
     {{ Form::open(array('url' => 'users')) }}
 
-    <div class="form-group">
+    <div class="form-group form-group-default required">
         {{ Form::label('name', 'Name') }}
         {{ Form::text('name', '', array('class' => 'form-control')) }}
     </div>
 
-    <div class="form-group">
+    <div class="form-group form-group-default required">
         {{ Form::label('email', 'Email') }}
         {{ Form::email('email', '', array('class' => 'form-control')) }}
     </div>
@@ -49,13 +49,13 @@
         @endforeach
     </div>
 
-    <div class="form-group">
+    <div class="form-group form-group-default required">
         {{ Form::label('password', 'Password') }}<br>
         {{ Form::password('password', array('class' => 'form-control')) }}
 
     </div>
 
-    <div class="form-group">
+    <div class="form-group form-group-default required">
         {{ Form::label('password', 'Confirm Password') }}<br>
         {{ Form::password('password_confirmation', array('class' => 'form-control')) }}
 
@@ -66,7 +66,7 @@
     {{ Form::close() }}
 
 	
-
+</div>
 @endsection
 
 @section('js')

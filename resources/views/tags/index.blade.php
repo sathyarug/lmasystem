@@ -88,10 +88,7 @@
                     
                     <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
 
-                    {{-- {!! Form::open(['method' => 'DELETE', 'route' => ['categories.destroy', $tag->id] ]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!} --}}
-
+                   
                     </td>
                 </tr>
                 @endforeach
@@ -101,9 +98,7 @@
                 </div>
               </div>
               <!-- END card -->
-              {{-- <div class="col-xs-12">
-                <a href="{{ route('categories.create') }}" class="btn btn-success" style="margin-top: 15px;margin-bottom: 15px;">Add Category</a>
-              </div> --}}
+              
               <button id="show-modal" class="btn btn-primary btn-cons" data-target="#modalSlideUp" data-toggle="modal" style="margin-bottom: 30px;"><i class="fa fa-plus"></i>
                 Add New Tag
               </button>
@@ -126,8 +121,8 @@
                   <div class="modal-header clearfix text-left">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
                     </button>
-                    <h5>Create New <span class="semi-bold">Category</span></h5>
-                    {{-- <p class="p-b-10">We need payment information inorder to process your order</p> --}}
+                    <h5>Create New <span class="semi-bold">Tag</span></h5>
+                    
                   </div>
                   <div class="modal-body">
                     {{-- <form role="form"> --}}
@@ -144,31 +139,11 @@
                             </div>
                           </div>
                         </div>
-                        {{-- <div class="row">
-                          <div class="col-md-8">
-                            <div class="form-group form-group-default">
-                              <label>Card Number</label>
-                              <input type="text" class="form-control">
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-group form-group-default">
-                              <label>Card Holder</label>
-                              <input type="text" class="form-control">
-                            </div>
-                          </div>
-                        </div> --}}
+                        
                       </div>
                            <div class="row">
                       <div class="col-md-8">
-                        {{-- <div class="p-t-20 clearfix p-l-10 p-r-10">
-                          <div class="pull-left">
-                            <p class="bold font-montserrat text-uppercase">TOTAL</p>
-                          </div>
-                          <div class="pull-right">
-                            <p class="bold font-montserrat text-uppercase">$20.00</p>
-                          </div>
-                        </div> --}}
+                        
                       </div>
                       <div class="col-md-4 m-t-10 sm-m-t-10">
                         {{ Form::submit('Add', array('class' => 'btn btn-primary btn-block m-t-5')) }}
@@ -177,7 +152,7 @@
                     </div>
                       {{ Form::close() }}
 
-                    {{-- </form> --}}
+                   
                
                   </div>
                 </div>

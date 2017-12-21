@@ -28,7 +28,7 @@ class UserPublicationAssignController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        $users = User::role('Press')->get(); 
         return view('userpublications.index',compact('users'));
 
     }
@@ -36,9 +36,11 @@ class UserPublicationAssignController extends Controller
     public function list($id)
     {
         $user = User::findOrFail($id);
-        $publications = Publication::all();
+       
+        $publications = Publication::pluck('name','id')->all();
         return view('userpublications.publication',compact('user','publications'));
        // return($subcategories[1]->categor->name);
+        // return $publications;
 
     }
 
@@ -61,6 +63,33 @@ class UserPublicationAssignController extends Controller
     public function store(Request $request)
     {
         //
+        $ip  = $request->ip();
+        $login_user = \Auth::user()->id;
+        $user = User::findOrFail($request->user_id);
+
+        $publication = Publication::find($request->publication_id);
+
+        if ($user->publications->contains($publication)) {
+
+          return redirect()->route('user.publication.list', $request->user_id)
+            ->with('flash_message',
+             ' Publication'. $publication->name.' Already Exsist');
+
+        } 
+        else {
+
+          
+          $user->publications()->attach(
+            [$request->publication_id => ['upload_status' => $request->upload_status,'tag_status' => $request->tag_status,'user_created' => $login_user,'user_edited' => $login_user,'ip_created' => $ip,'ip_edited' => $ip]]
+          );
+
+          return redirect()->route('user.publication.list', $request->user_id)
+            ->with('flash_message',
+             ' Publication'. $publication->name.' Added');
+
+        }
+
+        
     }
 
     /**
@@ -106,5 +135,19 @@ class UserPublicationAssignController extends Controller
     public function destroy($id)
     {
         //
+
+
+      return $id;
+    }
+    public function remove($user_id, $publication_id)
+    {
+        
+        $user = User::findOrFail($user_id);
+        $publication = Publication::findOrFail($publication_id);
+        $user->publications()->detach($publication->id);   
+        return redirect()->route('user.publication.list', $user->id)
+            ->with('flash_message',
+             ' Publication'. $publication->name.' Removed');   
+      
     }
 }

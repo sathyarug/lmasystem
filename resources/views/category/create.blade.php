@@ -23,6 +23,7 @@
 @endsection
 
 @section('content')
+
 <div class='col-lg-6 col-lg-offset-6'>
 
     <h1><i class='fa fa-plus'></i> Add Category</h1>

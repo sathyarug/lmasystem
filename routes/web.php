@@ -41,6 +41,8 @@ Route::resource('publication/upload','PublicationUploadController');
 Route::get('/publication/sections/{id}',array('as'=>'section.ajax','uses'=>'PublicationUploadController@sections'));
 Route::resource('user/publication','UserPublicationAssignController');
 Route::get('user/publications/{id}',['as' => 'user.publication.list','uses' => 'UserPublicationAssignController@list']);
+Route::get('user/{user_id}/publication/{publication_id}', [
+'as' => 'user.publication.remove', 'uses' => 'UserPublicationAssignController@remove']);
 
 
 

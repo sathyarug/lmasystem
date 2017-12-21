@@ -44,6 +44,10 @@ class User extends Authenticatable
     }
     public function publications()
     {
-        return $this->belongsToMany('App\Publication');
+        return $this->belongsToMany('App\Publication')->withPivot('upload_status','tag_status')->withTimestamps();
+    }
+    public function uploader()
+    {
+        return $this->belongsToMany('App\Publication')->wherePivot('upload_status','=','1')->withTimestamps();
     }
 }

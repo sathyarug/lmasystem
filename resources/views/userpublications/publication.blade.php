@@ -48,12 +48,56 @@
                   <div class="card-title"> <h1><i class="fa fa-bullseye"></i> User Publications </h1>
     
                   </div>
+                  <div class="card-block">
+
+                      {!! Form::open(['method'=>'POST','action'=>'UserPublicationAssignController@store']) !!}
+                       
+                        
+                        {!! Form::hidden('user_id', $user->id, []) !!}
+                         <div class="form-group-attached">
+                          <div class="form-group form-group-default required{{ $errors->has('publication_id') ? ' has-error' : '' }}">
+                            {!! Form::label('publication_id','Publication') !!}
+                            
+                            {!! Form::select('publication_id',[''=>'Choose Options'] + $publications, null,['class'=>'form-control','required']) !!}
+                          </div>
+                         
+                        </div>
+                        <br>
+                        <p class="m-t-10">Upload</p>
+          
+                       <div class="radio radio-success required{{ $errors->has('upload_status') ? ' has-error' : '' }}">
+                          <input type="radio"  value="1" name="upload_status" id="enable">
+                          <label for="enable">Enable</label>
+                          <input type="radio" checked="checked" value="0" name="upload_status" id="disable">
+                          <label for="disable">Disable</label>
+                      </div>
+
+   
+                         <br>
+                         <p class="m-t-10">Visibility</p>
+          
+                       <div class="radio radio-success required{{ $errors->has('tag_status') ? ' has-error' : '' }}">
+                          <input type="radio"  value="1" name="tag_status" id="enable1">
+                          <label for="enable1">Enable</label>
+                          <input type="radio" checked="checked" value="0" name="tag_status" id="disable1">
+                          <label for="disable1">Disable</label>
+                      </div>
+                      <br>
+                        {{-- <button class="btn btn-success" type="submit">Submit</button>
+                        <button class="btn btn-default"><i class="pg-close"></i> Clear</button> --}}
+                         {{Form::button('<i class="pg-plus"></i>'.' Add', array('type' => 'Add', 'class' => 'btn btn-primary'))}}
+                        
+                        
+               {{ Form::close() }}
+
+
+                  </div>
                   <div class="pull-right">
                     <div class="col-xs-12">
                       <input type="text" id="search-table" class="form-control pull-right" placeholder="Search">
                     </div>
                   </div>
-                  <div class="clearfix"></div>
+                  {{-- <div class="clearfix"></div> --}}
                 </div>
                 <div class="card-block">
                   <table class="table table-hover demo-table-search table-responsive-block" id="tableWithSearch">
@@ -63,6 +107,7 @@
                         <th>Publication Name</th>
                         <th>Upload Status</th>
                         <th>Tag Status</th>
+                        <th>Options</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -78,12 +123,36 @@
                     </td> 
                     <td>
                     
-                    {{  $userpublication->pivot->upload_status}}
+                        <a href="#" class="btn btn-primary pull-left" style="margin-right: 3px;margin-bottom: 3px;">
+                        @if($userpublication->pivot->upload_status == 1)
+                        Active
+                        @else
+                        Deactive
+                        @endif
+                        
                    {{-- <a href="{{ route('user.publication.list', $user->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Publications</a>
  --}}
                     </td>
                     <td>
+
+                        <a href="#" class="btn btn-primary pull-left" style="margin-right: 3px;margin-bottom: 3px;">
+                        @if($userpublication->pivot->tag_status == 1)
+                        Active
+                        @else
+                        Deactive
+                        @endif
+                       
+                     
                       
+                    </td>
+                    <td> 
+                      {{-- {{$userpublication->id}}
+
+                      {!! Form::open(['method' => 'POST', 'route' => ['user.publication.remove', $user->id,$userpublication->id] ]) !!}
+                      {!! Form::submit('Remove', ['class' => 'btn btn-danger']) !!}
+                      {!! Form::close() !!} --}}
+                      <a href="{{ route('user.publication.remove', [$user->id,$userpublication->id]) }}" class="btn btn-danger pull-left" style="margin-right: 3px;margin-bottom: 3px;">Remove</a>
+        
                     </td>
                 </tr>
                 @endforeach
@@ -93,6 +162,7 @@
                 </div>
               </div>
               <!-- END card -->
+
             </div>
           </div>
           <!-- END CONTAINER FLUID -->

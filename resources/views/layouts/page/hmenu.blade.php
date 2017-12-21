@@ -127,7 +127,7 @@
               <a href="#" class="header-icon pg pg-link"></a>
             </li>
             <li class="p-r-10 inline">
-              <a href="#" class="header-icon pg pg-thumbs"></a>
+              <a href="{{route('upload.create')}}" class="header-icon fa  fa-plus"> Upload</a>
             </li>
           </ul>
           <!-- END NOTIFICATIONS LIST -->

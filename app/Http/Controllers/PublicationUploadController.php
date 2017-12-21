@@ -45,8 +45,23 @@ class PublicationUploadController extends Controller
     public function create()
     {
         //
-        $publications = Publication::pluck('name','id')->all();
-        return view('publicationupload.create',compact('publications'));
+        $user = User::findOrFail(\Auth::user()->id);
+        // $publications = Publication::pluck('name','id')->all();
+        $publications = $user->uploader->pluck('name','id')->all();
+        
+        // return $publications;
+
+        // foreach ($publications as $publication) {
+        //     echo $publication->name;
+        //     echo " ";
+        //     // echo $publication->id;
+
+        //     echo "<br>";
+        // }
+
+        // var_dump($publications);
+        
+         return view('publicationupload.create',compact('publications'));
     }
 
      public function sections($id)

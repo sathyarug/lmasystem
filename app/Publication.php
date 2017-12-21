@@ -26,7 +26,7 @@ class Publication extends Model
     }
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withPivot('upload_status','tag_status')->withTimestamps();
         
     }
 }
