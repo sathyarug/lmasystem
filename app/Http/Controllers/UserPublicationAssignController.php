@@ -38,6 +38,11 @@ class UserPublicationAssignController extends Controller
         $user = User::findOrFail($id);
        
         $publications = Publication::pluck('name','id')->all();
+        // $publications = Publication::whereDoesntHave('users',function($q) use ($user){
+        //     $q->where('user_id',$user);
+        // })->get();
+        // print_r($publications);
+        // exit;
         return view('userpublications.publication',compact('user','publications'));
        // return($subcategories[1]->categor->name);
         // return $publications;
