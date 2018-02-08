@@ -45,4 +45,12 @@ Route::get('user/{user_id}/publication/{publication_id}', [
 'as' => 'user.publication.remove', 'uses' => 'UserPublicationAssignController@remove']);
 
 
+Route::resource('article','ArticleController');
+Route::get('article/{id}','ArticleController@show');
+Route::get('article/publication/{id}','ArticleController@showPublication');
+Route::post('croped-articles','ArticleController@showCroped');
+
+Route::resource('client','ClientController');
+
+
 

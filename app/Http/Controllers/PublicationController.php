@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use App\Publication;
 use App\Language;
+use App\Highlight;
 
 
 
@@ -100,7 +101,20 @@ class PublicationController extends Controller
         $publication->user_edited = $user;
         $publication->ip_created = $ip;
         $publication->ip_edited = $ip;
-        $publication->save();
+        $result = $publication->save();
+
+
+foreach ($request->highlights as $value) {
+$highlights = new Highlight();
+$highlights->publication_id  = $publication->id;
+$highlights->name  = $value['name'];
+$highlights->value  = $value['value'];
+$highlights->user_created = $user;
+$highlights->ip_created = $ip;
+$highlights->save();
+}
+
+
         return redirect()->route('publications.index')
             ->with('flash_message',
              'Publication '. $publication->name.' added!');
@@ -165,6 +179,17 @@ class PublicationController extends Controller
         $input['user_edited'] = $user;
         $publication->fill($input)->save();
 
+
+foreach ($request->highlights as $value) {
+$highlights = new Highlight();
+$highlights->publication_id  = $publication->id;
+$highlights->name  = $value['name'];
+$highlights->value  = $value['value'];
+$highlights->user_created = $user;
+$highlights->ip_created = $ip;
+$highlights->save();
+}
+
         return redirect()->route('publications.index')
             ->with('flash_message',
              'Publication '. $publication->name.' updated!');
@@ -182,11 +207,7 @@ class PublicationController extends Controller
     public function destroy($id)
     {
         //
-         $publication = Publication::findOrFail($id);
-
-    
-  
-
+        $publication = Publication::findOrFail($id);
         $publication->delete();
 
         return redirect()->route('publications.index')
