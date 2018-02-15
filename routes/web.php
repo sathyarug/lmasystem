@@ -51,6 +51,13 @@ Route::get('article/publication/{id}','ArticleController@showPublication');
 Route::post('croped-articles','ArticleController@showCroped');
 
 Route::resource('client','ClientController');
+Route::post('client/getcompany','ClientController@getCompany');
 
+Route::resource('highlight','HighlightController');
+Route::get('highlight/list/{id}',['as' => 'highlight.list','uses' => 'HighlightController@highlights']);
+Route::get('highlight/add/{id}',['as' => 'highlight.add','uses' => 'HighlightController@add']);
 
+Route::resource('clientcategory','ClientCategoryController');
+Route::get('clientcategory/list/{id}',['as' => 'clientcategory.list','uses' => 'ClientCategoryController@category']);
+Route::get('clientcategory/add/{id}',['as' => 'clientcategory.add','uses' => 'ClientCategoryController@add']);
 

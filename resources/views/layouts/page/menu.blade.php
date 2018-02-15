@@ -92,6 +92,17 @@
                   </a>
                   </li>
               </ul>
+              <ul class="main-menu">
+                <li class="">
+                  <a href="{{route('client.index')}}">
+                    <span class="icon-thumbnail">
+                       <i data-feather="inbox"></i> 
+                     </span>
+                    <span class="title">Clients</span>
+                    <span class="arrow"></span>
+                  </a>
+                  </li>
+              </ul>
 
               {{-- <p class="menu-title m-t-30">YOUR FAVOURITE</p> --}}
               {{-- <ul class="main-menu">

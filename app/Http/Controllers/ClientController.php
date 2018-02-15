@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use App\Company;
 use App\Country;
+use App\Category;
+use App\CategoryClient;
 Use App\Upload;
 use Carbon\Carbon ;
 
@@ -45,9 +47,9 @@ class ClientController extends Controller
     public function create()
     {
         $users = User::pluck('name','id')->all();
-         $companies = Company::pluck('name_full','id')->all();
-         $countries = Country::pluck('name','id')->all();
-        return view('client.create',compact('users','companies','countries'));
+        $categories = Category::pluck('name','id')->all();
+        $companies = Company::pluck('name_full','id')->all();        
+        return view('client.create',compact('users','companies','categories'));
     }
 
     /**
@@ -62,12 +64,14 @@ class ClientController extends Controller
         $request->request->add(['user_created' => $user]);
         $request->request->add(['ip_created' => $ip]);
         $Client = Client::create($request->all());
-        if ($Client)
+        if ($Client){
             return redirect()->route('client.index')
                             ->with('flash_message', 'Client added!');
-        else
+        }
+        else{
             return redirect()->route('client.index')
                             ->with('flash_message', 'Can not add!');
+        }
     }
 
     /**
@@ -138,5 +142,9 @@ class ClientController extends Controller
              'Client deleted!');
     }
     
-   
+    public function getCompany(Request $request) {
+        $data = Company::where('category_id', $request->category_id)->where('company_status', $request->category_id)->pluck('name_full', 'id');
+        return $data;
+    }
+    
 }

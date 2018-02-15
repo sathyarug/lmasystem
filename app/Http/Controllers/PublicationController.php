@@ -104,17 +104,6 @@ class PublicationController extends Controller
         $result = $publication->save();
 
 
-foreach ($request->highlights as $value) {
-$highlights = new Highlight();
-$highlights->publication_id  = $publication->id;
-$highlights->name  = $value['name'];
-$highlights->value  = $value['value'];
-$highlights->user_created = $user;
-$highlights->ip_created = $ip;
-$highlights->save();
-}
-
-
         return redirect()->route('publications.index')
             ->with('flash_message',
              'Publication '. $publication->name.' added!');
@@ -178,17 +167,6 @@ $highlights->save();
         $input['ip_edited'] = $ip;
         $input['user_edited'] = $user;
         $publication->fill($input)->save();
-
-
-foreach ($request->highlights as $value) {
-$highlights = new Highlight();
-$highlights->publication_id  = $publication->id;
-$highlights->name  = $value['name'];
-$highlights->value  = $value['value'];
-$highlights->user_created = $user;
-$highlights->ip_created = $ip;
-$highlights->save();
-}
 
         return redirect()->route('publications.index')
             ->with('flash_message',

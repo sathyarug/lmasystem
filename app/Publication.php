@@ -24,6 +24,11 @@ class Publication extends Model
         return $this->hasMany('App\PublicationSection');
         
     }
+    public function highlight()
+    {
+        return $this->hasMany('App\Highlight');
+        
+    }
     public function users()
     {
         return $this->belongsToMany('App\User')->withPivot('upload_status','tag_status')->withTimestamps();

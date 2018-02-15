@@ -138,26 +138,6 @@
                              </div>
                             <br>
                             
-                            <p class="m-t-10">Highlights</p>
-                            <div class="field_wrapper ">
-                                <div class="row">
-                                <div class="col-md-4">                                 
-                                            {!! Form::label('Text', ' Text') !!}
-                                            {!! Form::text('highlights[0][name]','',array('class' => "form-control" ,'required')) !!}
-                                </div>
-                                <div class="col-md-4">
-                                            {!! Form::label('Value', 'Value') !!}
-                                            {!! Form::text('highlights[0][value]','',array('class' => "form-control" ,'required')) !!}
-                                </div>
-                                <div class="col-md-4">
-                                        <div class="form-input-group">
-                                           <a href="javascript:void(0);" class="add_button" title="Add field"><img src="{{ asset('assets/img/addbtn.png') }}"/></a>
-                                    </div>
-                                </div> 
-                            </div>
-                            </div>
-                       
-                        <br>
 
                         <br>
                         {{-- <button class="btn btn-success" type="submit">Submit</button>
@@ -177,31 +157,6 @@
 
 @section('js')
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-          //New input field html 
-        var x = 1; //Initial field counter is 1
-        $(addButton).click(function() { //Once add button is clicked
-           var fieldHTML = '<div class="row fil-set"><div style="margin-top: 5px;" class="col-md-4"><input class="form-control" required="" name="highlights['+x+'][name]" value="" type="text"></div>\n\
-                        <div style="margin-top: 5px;" class="col-md-4"><input class="form-control" required="" name="highlights['+x+'][value]" value="" type="text"></div> \n\
-<div class="col-md-4" style="margin-top: 10px;"><div class="form-input-group">\n\
-<a href="javascript:void(0);" class="remove_button" title="Add field">\n\
-<img src="{{ asset('assets/img/remove.png') }}"/></a></div></div></div>'; 
-      //Increment field counter
-            x++;
-        $(wrapper).append(fieldHTML); // Add field html
-            
-        });
-        $(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked
-            e.preventDefault();
-            $(this).parents('.fil-set').remove(); //Remove field html
-            //Decrement field counter
-        });
-    });
-</script>
 
 @endsection
 

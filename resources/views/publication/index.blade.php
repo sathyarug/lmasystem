@@ -90,6 +90,7 @@
                     <td>
                     
                     <a href="{{ route('sections.list', $publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Sections</a>
+                    <a href="{{ route('highlight.list',$publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Highlight</a>
                     <a href="{{ route('publications.edit', $publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
 
                     {!! Form::open(['method' => 'DELETE', 'route' => ['publications.destroy', $publication->id] ]) !!}

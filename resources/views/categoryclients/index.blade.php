@@ -21,31 +21,23 @@
 <div class="bg-white">
     <div class="container">
         <ol class="breadcrumb breadcrumb-alt">
-            <li class="breadcrumb-item"><a href="#">Client</a></li>
+            <li class="breadcrumb-item"><a href="#">Client category</a></li>
             <li class="breadcrumb-item active">Show All</li>
         </ol>
               
     </div>
 </div>
 
-
-	
-
-
 @endsection
 
 @section('content')
-
-
-
-
  <!-- START CONTAINER FLUID -->
           <div class=" no-padding    container-fixed-lg bg-white">
             <div class="container">
               <!-- START card -->
               <div class="card card-transparent">
                 <div class="card-header ">
-                  <div class="card-title"> <h1><i class="fa fa-bullseye"></i> Client Management</h1>
+                  <div class="card-title"> <h1><i class="fa fa-bullseye"></i> Client category</h1>
     
                   </div>
                   <div class="pull-right">
@@ -59,44 +51,37 @@
                   <table class="table table-hover demo-table-search table-responsive-block" id="tableWithSearch">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Operations</th>
+                        <th>Categories</th>
+                        <th>Company</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($clients as $client)
-                <tr>
-
-                    <td>
-                        {{ $client->name}}
-                        
-                    </td> 
-                    <td>
-                    
-                    
-                    <a href="{{ route('client.edit', $client->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
-                    <a href="{{ route('clientcategory.list', $client->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Category</a>
-
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['client.destroy', $client->id] ]) !!}
+                      @foreach ($categoryclients as $categoryclient)
+                    <tr>
+                    <td>{{ $categoryclient->categories[0]['name']}}</td> 
+                    <td>{{ $categoryclient->company->name_full}}</td> 
+                    <td> 
+                    <a href="{{ route('clientcategory.edit', $categoryclient->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['clientcategory.destroy', $categoryclient->id] ]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
-
                     </td>
-                </tr>
-                @endforeach
-                      
+                    </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
               <!-- END card -->
               <div class="col-xs-12">
-                <a href="{{ route('client.create') }}" class="btn btn-primary" style="margin-bottom: 45px;">Add Client</a>
+                <a href="{{ route('clientcategory.add',$pid) }}" class="btn btn-primary" style="margin-bottom: 45px;">Add Client category</a>
               </div>
              {{--  <button id="show-modal" class="btn btn-primary btn-cons" data-target="#modalSlideUp" data-toggle="modal" style="margin-bottom: 30px;"><i class="fa fa-plus"></i>
                 Add New Category
               </button> --}}
 
+              
             </div>
           </div>
           <!-- END CONTAINER FLUID -->
