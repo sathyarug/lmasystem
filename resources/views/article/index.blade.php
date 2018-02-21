@@ -32,10 +32,14 @@
 <div class=" no-padding    container-fixed-lg bg-white">
     <div class="container">
         <!-- START card -->
+        
         <div class="card card-transparent">
+            
             <div class="card-header ">
                 <div class="card-title"> <h1><i class="fa fa-bullseye"></i> Publication Uploads</h1>
-
+<a href="{{route('pending.article')}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Pending</a>
+<a href="{{route('processed.article')}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Processed</a>
+<a href="{{route('approved.article')}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Approved</a>
                 </div>
                 <div class="pull-right">
                     <div class="col-xs-12">

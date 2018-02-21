@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\File;
 
 class ArticleController extends Controller
 {
+     public function __construct() 
+    {
+        $this->middleware('auth'); //isAdmin middleware lets only users with a //specific permission permission to access these resources
+    }
     /**
      * Display a listing of the resource.
      *
@@ -150,5 +154,23 @@ class ArticleController extends Controller
     {
         $data = [];
         return view('article.croped',compact('data'));
+    }
+    
+    public function pending()
+    {
+       $publicationup = PublicationUpload::where('status',0)->get(); 
+       return view('article.index',compact('publicationup'));
+    }
+    
+    public function processed()
+    {
+       $publicationup = PublicationUpload::where('status',2)->get(); 
+       return view('article.index',compact('publicationup'));
+    }
+    
+    public function approved()
+    {
+       $publicationup = PublicationUpload::where('status',3)->get();   
+       return view('article.index',compact('publicationup'));
     }
 }

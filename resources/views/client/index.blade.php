@@ -60,6 +60,7 @@
                     <thead>
                       <tr>
                         <th>Name</th>
+                        <th>Monitoring Types</th>
                         <th>Operations</th>
                       </tr>
                     </thead>
@@ -69,11 +70,19 @@
 
                     <td>
                         {{ $client->name}}
-                        
                     </td> 
                     <td>
-                    
-                    
+                        @if($client->press == 1)
+                        Press
+                        @endif
+                        @if($client->radio == 1)
+                        Radio
+                        @endif
+                        @if($client->tv == 1)
+                        TV
+                        @endif
+                    </td> 
+                    <td>
                     <a href="{{ route('client.edit', $client->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
                     <a href="{{ route('clientcategory.list', $client->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Category</a>
 

@@ -46,6 +46,10 @@ Route::get('user/{user_id}/publication/{publication_id}', [
 
 
 Route::resource('article','ArticleController');
+Route::get('pending/article','ArticleController@pending')->name('pending.article');
+Route::get('pending/processed','ArticleController@processed')->name('processed.article');
+Route::get('pending/approved','ArticleController@approved')->name('approved.article');
+
 Route::get('article/{id}','ArticleController@show');
 Route::get('article/publication/{id}','ArticleController@showPublication');
 Route::post('croped-articles','ArticleController@showCroped');
@@ -60,4 +64,8 @@ Route::get('highlight/add/{id}',['as' => 'highlight.add','uses' => 'HighlightCon
 Route::resource('clientcategory','ClientCategoryController');
 Route::get('clientcategory/list/{id}',['as' => 'clientcategory.list','uses' => 'ClientCategoryController@category']);
 Route::get('clientcategory/add/{id}',['as' => 'clientcategory.add','uses' => 'ClientCategoryController@add']);
+
+Route::resource('clientemail','ClientEmailController');
+Route::get('clientemail/list/{id}','ClientEmailController@maillist')->name('clientemail.list');
+Route::get('clientemail/add/{id}','ClientEmailController@add')->name('clientemail.add');
 

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryClient extends Model
 {
-    //
+    protected $table = 'category_client';
+    
     protected $fillable = [
-        'client_id','category_id','company_id','user_created','user_edited','ip_created'
+        'client_id','category_id','company_id','user_created','user_edited','ip_created','status'
     ];
     
      public function categories()

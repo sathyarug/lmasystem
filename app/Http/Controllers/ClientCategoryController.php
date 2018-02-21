@@ -50,12 +50,18 @@ class ClientCategoryController extends Controller {
         $ip = $request->ip();
         $request->request->add(['ip_created' => $ip]);
         $request->request->add(['user_created' => $user]);
-        $CategoryClient = CategoryClient::create($request->all());
-
+        $request->request->add(['status' => 1]);
+     
+        $exist = CategoryClient::where('company_id',$request->company_id)->where('client_id',$request->client_id)->where('category_id',$request->category_id)->exists();
+        if(!$exist){
+        $CategoryClient = CategoryClient::create($request->all());   
         if ($CategoryClient)
             return redirect()->to('/clientcategory/list/' . $request->client_id)->with('flash_message', 'Client category created!');
         else
             return redirect()->to('/clientcategory/list/' . $request->client_id)->with('flash_message', 'Can not create!.');
+        }else{
+             return redirect()->to('/clientcategory/list/' . $request->client_id)->with('flash_message', 'Can not create!. Already exist');
+        }
     }
 
     /**

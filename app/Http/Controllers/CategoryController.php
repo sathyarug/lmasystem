@@ -94,10 +94,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        
+    {       
         $category = Category::findOrFail($id);
-
         return view('category.edit', compact('category'));
     }
     

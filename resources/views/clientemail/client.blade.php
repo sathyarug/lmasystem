@@ -21,7 +21,7 @@
 <div class="bg-white">
     <div class="container">
         <ol class="breadcrumb breadcrumb-alt">
-            <li class="breadcrumb-item"><a href="#">Highlight</a></li>
+            <li class="breadcrumb-item"><a href="#">Clients</a></li>
             <li class="breadcrumb-item active">Show All</li>
         </ol>
               
@@ -45,7 +45,7 @@
               <!-- START card -->
               <div class="card card-transparent">
                 <div class="card-header ">
-                  <div class="card-title"> <h1><i class="fa fa-bullseye"></i> Highlights</h1>
+                  <div class="card-title"> <h1><i class="fa fa-bullseye"></i> clients</h1>
     
                   </div>
                   <div class="pull-right">
@@ -60,22 +60,17 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Value</th>
                         <th>Created</th>
                         <th>Operations</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($highlights as $highlight)
+                      @foreach ($clients as $client)
                     <tr>
-                    <td>{{ $highlight->name}}</td> 
-                    <td>{{ $highlight->value}}</td> 
-                    <td>{{ $highlight->created_at}}</td> 
+                    <td>{{ $client->name}}</td> 
+                    <td>{{ $client->created_at}}</td> 
                     <td> 
-                    <a href="{{ route('highlight.edit', $highlight->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Edit</a>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['highlight.destroy', $highlight->id] ]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+                    <a href="{{ route('clientemail.list', $client->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Add/Edit/Delete</a>
                     </td>
                     </tr>
                     @endforeach
@@ -84,18 +79,6 @@
                 </div>
               </div>
               <!-- END card -->
-              <div class="col-xs-12">
-                <a href="{{ route('highlight.add',$pid) }}" class="btn btn-primary" style="margin-bottom: 45px;">Add Highlight</a>
-              </div>
-             {{--  <button id="show-modal" class="btn btn-primary btn-cons" data-target="#modalSlideUp" data-toggle="modal" style="margin-bottom: 30px;"><i class="fa fa-plus"></i>
-                Add New Category
-              </button> --}}
-          
-
-
-
-
-
               
             </div>
           </div>
