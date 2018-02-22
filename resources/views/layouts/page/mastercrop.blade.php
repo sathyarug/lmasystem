@@ -40,6 +40,7 @@
     <!-- END OVERLAY -->
     <!-- BEGIN VENDOR JS -->
     @include('layouts.page.js')
+        
     @yield('js')
     <!-- END PAGE LEVEL JS -->
   </body>

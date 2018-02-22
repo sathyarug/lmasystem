@@ -2,7 +2,12 @@
 @section('title')
 
 <title>LMA Add Publication</title>
-
+<?php
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+?>
 @endsection
 
 @section('css')
@@ -63,7 +68,7 @@ echo '</pre>';
                                 $text = $value['text'];
                                 unset($value['text']);
                                 ?>
-                                <img data-txt="<?php echo $text ?>" src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />  
+                                <img crossorigin="anonymous" data-txt="<?php echo $text ?>" src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />  
                                 <?php
                                 echo '<br>';
                             }
@@ -88,20 +93,55 @@ echo '</pre>';
 @endsection
 
 @section('js')
+<script src="{{asset('js/jqueryajax-cross-origin.min.js')}}"></script>
 <script src="{{ asset('js/polyclip-p.js')}}" data-polyclip-clippreference="SVG" data-polyclip-forcepointerevents='true'></script>
 
 <script>
 setTimeout(
         function()
         {  
+
+
+
+           var img = new Image,
+     canvas = document.createElement("polyClip0");
+    var ctx = canvas.getContext("2d");
+    var src = "https://s3-ap-southeast-1.amazonaws.com/inclusivemediamonitoring/publication/2017/11/07/1510039000logo1.png"; // insert image url here
+
+img.crossOrigin = "Anonymous";
+
+img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage( img, 0, 0 );
+    localStorage.setItem( "savedImageData", canvas.toDataURL("image/png") );
+}
+img.src = src;
+// make sure the load event fires for cached images too
+if ( img.complete || img.complete === undefined ) {
+    img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    img.src = src;
+}
+   alert(img.src); 
+
+
             $('.allarticle').val(imgarray)              
             var imgarray = [];
             $('.polyClip-clipped').each(function(i, obj) {
+              
+              
+              
+              
+              
+              
                 var dataURL = this.toDataURL();
                 imgarray.push(dataURL);
+                alert(dataURL);
             });
             $('.allarticle').val(imgarray)
-        }, 500);
+            
+            
+        }, 1000);
 </script>
 @endsection
 
