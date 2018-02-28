@@ -40,7 +40,7 @@
                         <br>
                         <div class="form-group-attached">
                           <div class="form-group form-group-default required{{ $errors->has('value') ? ' has-error' : '' }}">
-                          {!! Form::label('Email Address','Value') !!}                          	                       
+                          {!! Form::label('Email Address','Email Address') !!}                          	                       
                           {!! Form::text('email','',array('class' => "form-control" ,'required')) !!}
                           {!! Form::hidden('client_id',$id,array('class' => "" )) !!}
                           </div>
@@ -56,6 +56,15 @@
                                 <input class="" name="tv" value="1" type="checkbox">
                                 <label for="tv">Tv</label>    
                             </div>                         
+                        </div>
+                        <br>
+                         <p class="m-t-10">Status</p>
+
+                        <div class="radio radio-success required{{ $errors->has('status') ? ' has-error' : '' }}">
+                            <input type="radio" checked="checked" value="1" name="status" id="daily">
+                            <label for="daily">Yes</label>
+                            <input type="radio" value="0" name="status" id="weekly">
+                            <label for="weekly">No</label>
                         </div>
                         <br>
                          {{Form::button('<i class="pg-plus"></i>'.' Save', array('type' => 'submit', 'class' => 'btn btn-primary'))}}

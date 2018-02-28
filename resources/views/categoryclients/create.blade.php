@@ -55,7 +55,15 @@
                                             {!! Form::select('company_id',[''=>'Choose Options'], null,['class'=>'form-control client_cat','required'=>'','data-id' => 0]) !!}
                                         </div> 
                           </div>
-                        </div>               
+                        </div>    
+                         <p class="m-t-10">Status</p>
+
+                        <div class="radio radio-success required{{ $errors->has('status') ? ' has-error' : '' }}">
+                            <input type="radio" checked="checked" value="1" name="status" id="daily">
+                            <label for="daily">Yes</label>
+                            <input type="radio" value="0" name="status" id="weekly">
+                            <label for="weekly">No</label>
+                        </div>
                         <br>
                         
                          {{Form::button('<i class="pg-plus"></i>'.' Save', array('type' => 'submit', 'class' => 'btn btn-primary'))}}

@@ -112,6 +112,7 @@ class ClientController extends Controller
        $Client = Client::where('id' , $client->id)->first();
             $Client->user_id = $request->user_id;
             $Client->name = $request->name;
+            $Client->status = $request->status;
             $Client->press = $request->press?$request->press:0;
             $Client->radio = $request->radio?$request->radio:0;
             $Client->tv = $request->tv?$request->tv:0;

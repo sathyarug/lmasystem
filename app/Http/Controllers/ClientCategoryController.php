@@ -50,7 +50,6 @@ class ClientCategoryController extends Controller {
         $ip = $request->ip();
         $request->request->add(['ip_created' => $ip]);
         $request->request->add(['user_created' => $user]);
-        $request->request->add(['status' => 1]);
      
         $exist = CategoryClient::where('company_id',$request->company_id)->where('client_id',$request->client_id)->where('category_id',$request->category_id)->exists();
         if(!$exist){
@@ -100,6 +99,7 @@ class ClientCategoryController extends Controller {
         $CategoryClient = CategoryClient::where('id', $id)->first();
         $CategoryClient->category_id = $request->category_id;
         $CategoryClient->company_id = $request->company_id;
+        $CategoryClient->status = $request->status;
         $CategoryClient->user_edited = $user;
         $CategoryClient->ip_edited = $ip;
         $result = $CategoryClient->update();

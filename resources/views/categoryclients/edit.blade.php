@@ -56,6 +56,15 @@
                         </div>               
                         </div>               
                         <br>
+                          <p class="m-t-10">Status</p>
+
+                        <div class="radio radio-success required{{ $errors->has('status') ? ' has-error' : '' }}">
+                            <input type="radio" @if($data['status'] == 1)  checked="checked"  @endif value="1" name="status" id="daily">
+                            <label for="daily">Yes</label>
+                            <input type="radio" value="0" @if($data['status'] == 0)  checked="checked"  @endif name="status" id="weekly">
+                            <label for="weekly">No</label>
+                        </div>
+                        <br>
                          {{Form::button('<i class="pg-plus"></i>'.' Update', array('type' => 'submit', 'class' => 'btn btn-primary'))}}
                         {{ Form::close() }}
                       

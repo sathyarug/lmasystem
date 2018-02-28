@@ -9,7 +9,10 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
 ?>
 @endsection
-
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+<allow-access-from domain="*" />
+</cross-domain-policy> 
 @section('css')
 <link rel="stylesheet" href="//cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css">	
 @endsection
@@ -68,7 +71,7 @@ echo '</pre>';
                                 $text = $value['text'];
                                 unset($value['text']);
                                 ?>
-                                <img data-txt="<?php echo $text ?>" src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />  
+                                <img crossOrigin="Anonymous" data-txt="<?php echo $text ?>" src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />  
                                 <?php
                                 echo '<br>';
                             }

@@ -15,7 +15,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 @endsection
 
-
 @section('breadcrumbs')
 <!--<div class="bg-white">
     <div class="container">

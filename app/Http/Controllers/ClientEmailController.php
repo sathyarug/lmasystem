@@ -45,7 +45,6 @@ class ClientEmailController extends Controller
         $ip = $request->ip();
         $request->request->add(['user_created' => $user]);
         $request->request->add(['ip_created' => $ip]);
-        $request->request->add(['status' => 1]);
         $Highlight = ClientEmail::create($request->all());
         if ($Highlight)
         return redirect()->route('clientemail.list',$request->client_id)->with('flash_message', 'Email created!');
@@ -89,6 +88,7 @@ class ClientEmailController extends Controller
        $ip  = $request->ip();
        $ClientEmail = ClientEmail::where('id' , $id)->first();
             $ClientEmail->email = $request->email;
+            $ClientEmail->status = $request->status;
             $ClientEmail->press = isset($request->press) ? $request->press : 0;
             $ClientEmail->radio = isset($request->radio) ? $request->radio : 0;
             $ClientEmail->tv = isset($request->tv) ? $request->tv : 0;
