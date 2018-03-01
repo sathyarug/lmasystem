@@ -145,7 +145,7 @@ class ArticleController extends Controller
         $PublicationUpload->status = 1;     
         $result = $PublicationUpload->update();
         
-        $data['publication_page'] = 'http://52.221.129.69/public/uploads/'.$PublicationUpload->uploads->first()->file;
+        $data['publication_page'] = 'http://52.221.129.69/uploads/'.$PublicationUpload->uploads->first()->file;
 //        $data['publication_page'] = url('/').'/Penguins.jpg';
         $data['publication_upload_id'] = $request->id;
         return view('article.showpub',compact('data','PublicationUpload'));
