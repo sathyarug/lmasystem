@@ -29,6 +29,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
+//        iamonitoring/publication/2018/03/01/1519885844Chrysanthemum.jpg
        $publicationup = PublicationUpload::all();  
        return view('article.index',compact('publicationup'));
     }

@@ -2,17 +2,7 @@
 @section('title')
 
 <title>LMA Add Publication</title>
-<?php
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
-?>
 @endsection
-<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
-<cross-domain-policy>
-<allow-access-from domain="*" />
-</cross-domain-policy> 
 @section('css')
 <link rel="stylesheet" href="//cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css">	
 @endsection
