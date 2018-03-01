@@ -82,9 +82,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if($publication->status == 0)
+                               
                                 <a href="{{ url('article/publication') }}/{{$publication->id}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Open</a>
-                                @endif
+                             
                             </td>
                         </tr>
                         @endforeach
