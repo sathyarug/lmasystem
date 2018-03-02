@@ -25,10 +25,7 @@
         </ol>
     </div>
 </div>
-
-
 @endsection
-
 @section('content')
   @can('UploadPublication')
 
