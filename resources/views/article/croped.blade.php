@@ -61,7 +61,9 @@ echo '</pre>';
                                 $text = $value['text'];
                                 unset($value['text']);
                                 ?>
-                                <img crossOrigin="Anonymous" data-txt="<?php echo $text ?>" src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />  
+                            <div class="parentdiv" data-tit="<?php echo $text ?>" data-desc="<?php echo $text ?>">
+                              <img crossOrigin="Anonymous"  src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />                                    
+                            </div>
                                 <?php
                                 echo '<br>';
                             }
@@ -72,8 +74,8 @@ echo '</pre>';
                             <input name="publication_upload_id" type="hidden" value="<?php echo $_POST['publication_upload_id'] ?>"/>
                             <input name="allarticle" type="hidden" class="allarticle" value=""/>
                             <button type="submit" id="show-modal" class="btn btn-primary btn-cons" style="margin-bottom: 30px;"><i class=""></i>
-            Upload
-              </button>
+                                Upload
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -92,18 +94,18 @@ echo '</pre>';
 setTimeout(
         function()
         {  
-//            var img = new Image;
-//// This src needs the correct headers
-//img.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/pie.png";
-//// This makes it work
-//img.crossOrigin = "Anonymous";
             $('.allarticle').val(imgarray)              
             var imgarray = [];
-            $('.polyClip-clipped').each(function(i, obj) {             
+            $('.polyClip-clipped').each(function(i, obj) {   
+                var cordinates = $(this).attr('data-polyclip');
+                var title=$(this).parent('.parentdiv').attr('data-tit');
+                var desc=$(this).parent('.parentdiv').attr('data-desc');
                 var dataURL = this.toDataURL();
-                imgarray.push(dataURL);
+                imgarray.push({title:title, image:dataURL, cordinates:cordinates});
             });
-            $('.allarticle').val(imgarray)
+            $('.allarticle').val(JSON.stringify(imgarray));
+//            $('.codinates').val(cordinates);
+//            $('.txt').val(txt);
         }, 1000);
 </script>
 @endsection

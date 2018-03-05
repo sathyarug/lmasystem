@@ -46,11 +46,13 @@ Route::get('user/{user_id}/publication/{publication_id}', [
 
 
 Route::resource('article','ArticleController');
+Route::post('article/{id}','ArticleController@update');
 Route::get('pending/article','ArticleController@pending')->name('pending.article');
 Route::get('pending/processed','ArticleController@processed')->name('processed.article');
 Route::get('pending/approved','ArticleController@approved')->name('approved.article');
 
 Route::get('article/{id}','ArticleController@show');
+Route::get('showarticle/{id}','ArticleController@showarticle')->name('showarticle');;
 Route::get('article/publication/{id}','ArticleController@showPublication');
 Route::post('croped-articles','ArticleController@showCroped');
 

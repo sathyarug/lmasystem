@@ -81,10 +81,14 @@
                                 Processed
                                 @endif
                             </td>
-                            <td>
-                               
-                                <a href="{{ url('article/publication') }}/{{$publication->id}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Open</a>
-                             
+                            <td>   
+                                 @if($publication->status == 0)
+                                  <a href="{{ url('article/publication') }}/{{$publication->id}}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Open</a>
+                                @elseif($publication->status == 1)
+                                Locked
+                                @elseif($publication->status == 2)
+                                  <a href="{{ route('showarticle',$publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Approve</a>                                                        
+                                @endif                            
                             </td>
                         </tr>
                         @endforeach

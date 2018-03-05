@@ -51,47 +51,50 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        if($request->allarticle){
-        $imagedata = str_replace('data:image/png;base64,', '', $request->allarticle);
-        $pieces = explode(",", $imagedata);
-        $user = \Auth::user()->id;
-        $ip = $request->ip();
-        $upres = FALSE;
-        foreach ($pieces as $ky => $pce) {
-            $data = base64_decode($pce);
-            $s3 = \Storage::disk('s3');
-            $name = time() . '_' . $ky . '.jpg';
-            $filePath = 'article/' . date("Y") . '/' . date("m") . '/' . date("d") . '/' . $name;
-            $s3->put($filePath, $data, 'public');
-            
-              $Article = new Article();
-              $Article->publication_upload_id = $request->publication_upload_id;
-              $Article->headline = '';
-              $Article->description = '';
-              $Article->highlight_id = 5;
-              $Article->column_cm = 5;
-              $Article->cordinate_map = '';
-              $Article->user_created = $user;
-              $Article->ip_created = $ip;
-              $Article->save();
-              
-              $upload = new Upload();
-              $upload->file = $filePath;
-              $upload->user_created = $user;
-              $upload->ip_created = $ip;
-              $upres = $Article->photo()->save($upload);
-        }
-        if($upres){
-        $PublicationUpload = PublicationUpload::find($request->publication_upload_id);       
-        $PublicationUpload->status = 2;     
-        $result = $PublicationUpload->update();
-        }
-        
-        return redirect()->route('article.index')
-                        ->with('flash_message', 'Article added!');
+        if ($request->allarticle) {
+            $user = \Auth::user()->id;
+            $ip = $request->ip();
+            $upres = FALSE;
+
+            foreach (\GuzzleHttp\json_decode($request->allarticle) as $ky => $pce) {
+                $imagedata = str_replace('data:image/png;base64,', '', $pce->image);
+                $data = base64_decode($imagedata);
+                $s3 = \Storage::disk('s3');
+                $name = time() . '_' . $ky . '.jpg';
+                $filePath = 'article/' . date("Y") . '/' . date("m") . '/' . date("d") . '/' . $name;
+                $s3->put($filePath, $data, 'public');
+
+                $Article = new Article();
+                $Article->publication_upload_id = $request->publication_upload_id;
+                $Article->headline = $pce->title;
+                $Article->description = '';
+                $Article->highlight_id = 5;
+                $Article->column_cm = 5;
+                $Article->cordinate_map = $pce->cordinates;
+                $Article->user_created = $user;
+                $Article->ip_created = $ip;
+                $Article->save();
+
+                $upload = new Upload();
+                $upload->file = $filePath;
+                $upload->user_created = $user;
+                $upload->ip_created = $ip;
+                $upres = $Article->photo()->save($upload);
+            }
+            if ($upres) {
+                $PublicationUpload = PublicationUpload::find($request->publication_upload_id);
+                $contents = Storage::get($PublicationUpload->uploads->first()->file);
+                $s3 = \Storage::disk('s3');
+                $s3->put($PublicationUpload->uploads->first()->file, $contents, 'public');
+
+                $PublicationUpload->status = 2;
+                $result = $PublicationUpload->update();
+            }
+
+            return redirect()->route('article.index')
+                            ->with('flash_message', 'Article added!');
         }
         return redirect()->route('article.index');
-                        
     }
 
     /**
@@ -125,7 +128,11 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+      $PublicationUpload = PublicationUpload::find($request->publication_id);       
+        $PublicationUpload->status = 3;     
+        $result = $PublicationUpload->update();
+             return redirect()->route('article.index')
+                        ->with('flash_message', 'Article Approved');
     }
 
     /**
@@ -144,8 +151,7 @@ class ArticleController extends Controller
         $PublicationUpload = PublicationUpload::find($request->id);       
         $PublicationUpload->status = 1;     
         $result = $PublicationUpload->update();
-        
-        $data['publication_page'] = 'http://52.221.129.69/uploads/'.$PublicationUpload->uploads->first()->file;
+        $data['publication_page'] = Storage::url($PublicationUpload->uploads->first()->file);
         $data['publication_upload_id'] = $request->id;
         return view('article.showpub',compact('data','PublicationUpload'));
     }
@@ -172,5 +178,12 @@ class ArticleController extends Controller
     {
        $publicationup = PublicationUpload::where('status',3)->get();   
        return view('article.index',compact('publicationup'));
+    }
+    
+    public function showarticle($id)
+    {
+       $data = Article::where('publication_upload_id',$id)->get();  
+//       dd($data);
+       return view('article.showall',compact('data','id'));
     }
 }

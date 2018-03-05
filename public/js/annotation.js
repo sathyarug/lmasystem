@@ -138,10 +138,6 @@ $.fn.annotation = function(options) {
 
     function showTxtDialog() {
         var message = $('<p />'),
-            inputtxt = $('<text />', {
-                id: 'annotation-popup-text',
-                rows: 6
-            }),
             input = $('<textarea />', {
                 id: 'annotation-popup-text',
                 rows: 6
@@ -160,7 +156,7 @@ $.fn.annotation = function(options) {
 		isDialogOpen = true;
         $('<div />').qtip({
             content: {
-                text: message.add(inputtxt).add(input).add(ok).add(cancel),
+                text: message.add(input).add(ok).add(cancel),
                 title: 'Enter text'
             },
             position: {
