@@ -138,6 +138,10 @@ $.fn.annotation = function(options) {
 
     function showTxtDialog() {
         var message = $('<p />'),
+            inputt = $('<input >', {
+                id: 'annotation-popup-text-title',
+    
+            }),
             input = $('<textarea />', {
                 id: 'annotation-popup-text',
                 rows: 6
@@ -156,7 +160,7 @@ $.fn.annotation = function(options) {
 		isDialogOpen = true;
         $('<div />').qtip({
             content: {
-                text: message.add(input).add(ok).add(cancel),
+                text: message.add(inputt).add(input).add(ok).add(cancel),
                 title: 'Enter text'
             },
             position: {
@@ -178,7 +182,7 @@ $.fn.annotation = function(options) {
 						$('#annotation-popup-text').focus();
 					}, 500);
                     $('#annotation-popup-btn-ok', api.elements.content).click(function(e) {
-                        saveTxtForLastAnnotation($('#annotation-popup-text').val());
+                        saveTxtForLastAnnotation($('#annotation-popup-text').val(),$('#annotation-popup-text-title').val());
 						hiddenInputId.val(JSON.stringify(annotations));
                         api.hide(e);
                     });
@@ -195,7 +199,8 @@ $.fn.annotation = function(options) {
         });
     }
     
-    function saveTxtForLastAnnotation(txt) {
+    function saveTxtForLastAnnotation(txt,tite) {
+        annotations[annotations.length - 1].title = tite;
         annotations[annotations.length - 1].text = txt;
         renderAnnotations(canvas, annotations);
     }

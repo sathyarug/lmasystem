@@ -62,11 +62,7 @@
 setTimeout(
         function()
         {  
-//            var img = new Image;
-//// This src needs the correct headers
-//img.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/pie.png";
-//// This makes it work
-//img.crossOrigin = "Anonymous";
+
             $('.allarticle').val(imgarray)              
             var imgarray = [];
             $('.polyClip-clipped').each(function(i, obj) {             

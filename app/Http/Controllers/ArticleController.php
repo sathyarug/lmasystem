@@ -67,7 +67,7 @@ class ArticleController extends Controller
                 $Article = new Article();
                 $Article->publication_upload_id = $request->publication_upload_id;
                 $Article->headline = $pce->title;
-                $Article->description = '';
+                $Article->description = $pce->desc;
                 $Article->highlight_id = 5;
                 $Article->column_cm = 5;
                 $Article->cordinate_map = $pce->cordinates;

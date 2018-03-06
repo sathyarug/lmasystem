@@ -26,7 +26,6 @@
 $codi = json_decode($_POST['annotationsJSON']);
 echo '<pre>';
 $codi = json_decode(json_encode($codi), true);
-//  var_dump($codi);
 $data[] = array();
 $datax[] = array();
 $datay[] = array();
@@ -37,6 +36,7 @@ foreach ($codi as $ky => $value) {
         $data[$ky][] = $val['x'];
         $data[$ky][] = $val['y'];
         $data[$ky]['text'] = $value['text'];
+        $data[$ky]['title'] = $value['title'];
     }
 //      var_dump(max($datax[$ky])); 
 //      var_dump(min($datay[$ky])); 
@@ -58,10 +58,12 @@ echo '</pre>';
                         <div class="clipParent">
                             <?php
                             foreach ($data as $value) {
+                                $title = $value['title'];
                                 $text = $value['text'];
                                 unset($value['text']);
+                                unset($value['title']);
                                 ?>
-                            <div class="parentdiv" data-tit="<?php echo $text ?>" data-desc="<?php echo $text ?>">
+                            <div class="parentdiv" data-tit="<?php echo $title ?>" data-desc="<?php echo $text ?>">
                               <img crossOrigin="Anonymous"  src="<?php echo $_POST['image'] ?>" class="images" data-polyclip="<?php echo implode(",", $value) ?>"  />                                    
                             </div>
                                 <?php
@@ -101,7 +103,7 @@ setTimeout(
                 var title=$(this).parent('.parentdiv').attr('data-tit');
                 var desc=$(this).parent('.parentdiv').attr('data-desc');
                 var dataURL = this.toDataURL();
-                imgarray.push({title:title, image:dataURL, cordinates:cordinates});
+                imgarray.push({title:title,desc:desc, image:dataURL, cordinates:cordinates});
             });
             $('.allarticle').val(JSON.stringify(imgarray));
 //            $('.codinates').val(cordinates);
