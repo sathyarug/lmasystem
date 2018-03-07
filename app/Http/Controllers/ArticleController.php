@@ -83,7 +83,7 @@ class ArticleController extends Controller
             }
             if ($upres) {
                 $PublicationUpload = PublicationUpload::find($request->publication_upload_id);
-                $contents = Storage::get($PublicationUpload->uploads->first()->file);
+                $contents = url('storage').'/'.$PublicationUpload->uploads->first()->file;
                 $s3 = \Storage::disk('s3');
                 $s3->put($PublicationUpload->uploads->first()->file, $contents, 'public');
 
@@ -152,7 +152,6 @@ class ArticleController extends Controller
         $PublicationUpload->status = 1;     
         $result = $PublicationUpload->update();
         $data['publication_page'] = url('storage').'/'.$PublicationUpload->uploads->first()->file;
-        var_dump($data['publication_page']);
         $data['publication_upload_id'] = $request->id;
         return view('article.showpub',compact('data','PublicationUpload'));
     }
