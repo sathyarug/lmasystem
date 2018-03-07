@@ -34,7 +34,7 @@
                     <div class="card-block">
                         <div class="clipParent">
                             @foreach($data as $dt)
-                            <img  src="{{$dt->photo->first()->file}}" class="images" />  
+                            <img  src="{{Storage::disk('s3')->url($dt->photo->first()->file)}}" class="images" />  
                             <br>
                             @endforeach 
                         </div>
