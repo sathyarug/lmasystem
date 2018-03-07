@@ -104,7 +104,7 @@ class PublicationUploadController extends Controller
 
        if($file = $request->file('file')) {
 
-            $s3 = \Storage::disk('publication');
+            $s3 = \Storage::disk('local');
               $name = time() . $file->getClientOriginalName();
               $filePath = 'publication/'.date("Y").'/'.date("m").'/'.date("d").'/' . $name;
               $s3->put($filePath, file_get_contents($file), 'public');
