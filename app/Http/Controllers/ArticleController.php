@@ -159,7 +159,7 @@ class ArticleController extends Controller
     public function showCroped(Request $request)
     {
         $data = [];
-        return view('article.croped',compact('data'));
+        return view('article.croped',compact('data')); 
     }
     
     public function pending()
