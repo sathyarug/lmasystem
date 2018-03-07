@@ -48,6 +48,13 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'storage',   
         ],
+        
+        'publication' => [ 
+            'driver' => 'local', 
+            'root' => storage_path('app/publication'), 
+            'url' => env('APP_URL') . '/publication', // added line (directory within "public") 
+            'visibility' => 'public', // modified visibility 
+          ],
 
         'public' => [
             'driver' => 'local',

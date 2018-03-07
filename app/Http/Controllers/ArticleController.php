@@ -152,7 +152,7 @@ class ArticleController extends Controller
         $PublicationUpload->status = 1;     
         $result = $PublicationUpload->update();
         $data['publication_page'] = Storage::url($PublicationUpload->uploads->first()->file);
-        dd($data['publication_page']);
+        var_dump($data['publication_page']);
         $data['publication_upload_id'] = $request->id;
         return view('article.showpub',compact('data','PublicationUpload'));
     }
