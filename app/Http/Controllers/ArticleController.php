@@ -30,7 +30,7 @@ class ArticleController extends Controller
     public function index()
     {
 //        iamonitoring/publication/2018/03/01/1519885844Chrysanthemum.jpg
-       $publicationup = PublicationUpload::all();  
+       $publicationup = PublicationUpload::where('status',0)->get(); ;  
        return view('article.index',compact('publicationup'));
     }
 
@@ -183,7 +183,14 @@ class ArticleController extends Controller
     public function showarticle($id)
     {
        $data = Article::where('publication_upload_id',$id)->get();  
-//       dd($data);
-       return view('article.showall',compact('data','id'));
+       $publication = PublicationUpload::find($id);
+       return view('article.showall',compact('data','id','publication'));
+    }
+    
+    public function original($id)
+    {
+       $data = PublicationUpload::find($id);
+       $url = Storage::disk('s3')->url($data->uploads->first()->file);
+       return view('article.showoriginal',compact('data','url'));
     }
 }

@@ -87,8 +87,10 @@
                                 @elseif($publication->status == 1)
                                 Locked
                                 @elseif($publication->status == 2)
-                                  <a href="{{ route('showarticle',$publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Approve</a>                                                        
-                                @endif                            
+                                  <a href="{{ route('showarticle',$publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Approve</a>                                                          
+                                @elseif($publication->status == 3)
+                                  <a href="{{ route('showarticle',$publication->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;margin-bottom: 3px;">Show</a>                                                        
+                                @endif 
                             </td>
                         </tr>
                         @endforeach

@@ -46,6 +46,7 @@ Route::get('user/{user_id}/publication/{publication_id}', [
 
 
 Route::resource('article','ArticleController');
+Route::get('original/article/{id}','ArticleController@original')->name('original.article');
 Route::post('article/{id}','ArticleController@update');
 Route::get('pending/article','ArticleController@pending')->name('pending.article');
 Route::get('pending/processed','ArticleController@processed')->name('processed.article');

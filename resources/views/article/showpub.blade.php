@@ -42,15 +42,15 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
                   <div id="annotation"></div>      
                         
-                <form action="{{ url('/croped-articles') }}" method="post" target="_blank">
-                <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-		<input type="hidden" id="annotationsJSON" name="annotationsJSON" />
-                <input type="hidden" id="publication_upload_id" value="@if(!empty($data['publication_upload_id'])) {{$data['publication_upload_id']}} @endif" name="publication_upload_id" />
-		<input type="hidden" name="image" value="@if(!empty($data['publication_page'])) {{$data['publication_page']}} @endif" />
-		             <button type="submit" id="show-modal" class="btn btn-primary btn-cons" style="margin-bottom: 30px;margin-top: 50px;"><i class=""></i>
-            Show Article
-              </button>
-	</form>
+                  <form action="{{ url('/croped-articles') }}" method="post" target="_blank">
+                      <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                      <input type="hidden" id="annotationsJSON" name="annotationsJSON" />
+                      <input type="hidden" id="publication_upload_id" value="@if(!empty($data['publication_upload_id'])) {{$data['publication_upload_id']}} @endif" name="publication_upload_id" />
+                      <input type="hidden" name="image" value="@if(!empty($data['publication_page'])) {{$data['publication_page']}} @endif" />
+                      <button type="submit" id="show-modal" class="btn btn-primary btn-cons" style="margin-bottom: 30px;margin-top: 50px;border-color: #07c25f;background-color: #07c25f;color: #fff;padding: 12px;font-size:  14px;border: 1px solid;border-radius: 5px;"><i class=""></i>
+                          Process Article
+                      </button>
+                  </form>
 	
 <!--	     
                     </div>
@@ -61,9 +61,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
             </div>
           </div>-->
           <!-- END CONTAINER FLUID -->
-
-	
-
 @endsection
 
 @section('js')

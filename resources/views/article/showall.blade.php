@@ -30,6 +30,9 @@
 
             <div class="col-md-12">
                 <!-- START card -->
+                <a href="{{ route('original.article',$id) }}" class="btn btn-primary btn-cons" target="_blank" style="margin-bottom: 30px;margin-top: 50px;"><i class=""></i>
+                                Show original publication
+                            </a>
                 <div class="card card-transparent">
                     <div class="card-block">
                         <div class="clipParent">
@@ -41,9 +44,11 @@
                         <form action="{{ route('article.update',$id) }}" method="post">
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                             <input type="hidden" id="annotationsJSON" name="publication_id" value="{{$id}}" />
+                             @if($publication->status == 2)
                             <button type="submit" id="show-modal" class="btn btn-primary btn-cons" style="margin-bottom: 30px;margin-top: 50px;"><i class=""></i>
                                 Approve Article
                             </button>
+                             @endif 
                         </form>
                     </div>
                 </div>
